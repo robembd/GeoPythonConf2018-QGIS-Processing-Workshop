@@ -77,7 +77,7 @@ As a Core plugin, Processing is installed by default but you need to activate it
 * **Source**: This task is based on Task 6 of the course _Introduction to GIS and Digital Cartography_ by Claas Leiner, University of Kassel, 2010.
 	* Adapted to a class for Vector Analysis by Stefan Keller, FS 2017
 	* Translated and adapted for QGIS 3.0 and the GeoPython Conference by Kang Zi Jing, 2018
-* **Data**: provided are a polygon vector file (**umgebung.gpkg**) which maps Biotype habitats, a line vector file (**autobahn.gpkg**) for the fictional highway route, and a topographic map (**heli_modified.tif**) scaled at 1:25,000 (Tk25) to be used as a basemap. 
+* **Data**: provided are a polygon vector file (**umgebung.gpkg**) which maps Biotype habitats, a line vector file (**autobahn.gpkg**) for the fictional highway route, and a topographic map (**heli_georeferenced.tif**) scaled at 1:25,000 (Tk25) to be used as a basemap. 
 * **Workflow**: The detailed workflow can be found in the repositor in **Workflow/Highway Construction Workflow English.doc**.
 
 **As you can already guess, doing the same analysis over and over again on different files is very tedious, boring and repetitive. Is there a way to automate this? Yes! With the help of scripting and PyQGIS, we can!**
@@ -113,7 +113,7 @@ We want to write a script to automate tasks, so let us explore asking for user i
 
 1. On the Menu Toolbar, click `Plugins -> Python Console` or press `Ctrl + Alt + P` on your keyboard to open up the Python Console
 2. You can run Python code on the console or in the editor. We'll choose the latter. To sho the editor click on the 'Show editor' button next to the `Run command button`. 
-3. In the editor create a new file and save it somewhere, for example in a new folder `/Solution/solution.py`
+3. In the editor create a new file and save it somewhere, for example in a new folder `/Solution/My Solution.py`
 4. In the previous step we set the CRS manually to EPSG:31467. This can also be done programmatically. First restore the default CRS by copy-pasting the command `QgsProject.instance().setCrs(QgsCoordinateReferenceSystem(4326))` in the script file.
 5. Run the command by selecting and right-clicking on it and select `Run Selected`
 6. Check that the CRS in the bottom right corner has changed back to EPSG:4326. Then restore the CRS to EPSG:31467 by running the command `QgsProject.instance().setCrs(QgsCoordinateReferenceSystem(31467))`.
@@ -327,7 +327,7 @@ This tool will extract the overlapping portions of features (implying that they 
 	- fix the geometry of the `Environment` layer using the 'Fix geometries' tool with output layer name `Environment Fixed` **without adding the fixed geometry layer to the project** (only store the layer reference: `envLayerFixed = outAlgo['OUTPUT']` instead of `QgsProject.instance().addMapLayer(...)`
 	- make the intersection of `envLayerFixed` with `Impact Area` using the 'Intersection' tool with output layer name `Impact Area Intersect`.
 
-**Bonus**: create a function `intersect_layers(inpLayerName1, inpLayerName2, outLayerName)` that first checks the validity of the layers with names `inpLayerName1` and `inpLayerName1` (and deriving a fixed geometry version of the layer **without adding it to the project**) and then creates an intersection with name `outputLayerName`. One possible way is to make use of a third tool in the Toolbox (find out which one... or check the solution file `Scripts/Solution.py`). You can use the same strategy as before to get the required inputs, parameters and outputs (note that some algorithm can have *multiple* outputs). Another way would involve more general Python exception handling of the thrown `QgsProcessingException` error (using `try`, `except` and/or `finally`).
+**Bonus**: create a function `intersect_layers(inpLayerName1, inpLayerName2, outLayerName)` that first checks the validity of the layers with names `inpLayerName1` and `inpLayerName1` (and deriving a fixed geometry version of the layer **without adding it to the project**) and then creates an intersection with name `outputLayerName`. One possible way is to make use of a third tool in the Toolbox (find out which one... or check the solution file `Scripts/Workshop Solution.py`). You can use the same strategy as before to get the required inputs, parameters and outputs (note that some algorithm can have *multiple* outputs). Another way would involve more general Python exception handling of the thrown `QgsProcessingException` error (using `try`, `except` and/or `finally`).
 5. Your result should look something like this: 
 
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Task%204%20Example.png)
@@ -497,13 +497,13 @@ if renderer is not None:
 
 layer.triggerRepaint()
 ```
-5. **(Optional in case you did Task 3.3.)** Do the same for the `Impact Area` layer by applying a different color for each of the unique values of the `fid_union` field. Modify the coloring such that a **different shade of blue** is applied rather than a random color (Hints: you may have modify the for loop + you can for example use a list of RGB combinations you can iterate through in the for loop is used e.g. `rgbs = [[[30, 63, 102], [82, 138, 174], [188, 210, 232]]])` but you could also make it more challenging by trying to use a color ramp).
+5. **(Optional in case you did Task 3.3.)** Do the same for the `Impact Area` layer by applying a different color for each of the unique values of the `fid_union` field. Modify the coloring such that a **different shade of blue** is applied rather than a random color (Hints: you may have modify the for loop + you can for example use a list of RGB combinations you can iterate through in the for loop is used e.g. `rgbs = [[[30, 63, 102], [82, 138, 174], [188, 210, 232]]])` but you could also make it more challenging by trying to use a color ramp). You can check a possible solution in the solutions script `Scripts/Workshop Solution.py`.
 
 #### Task 6.4. Adding a basemap
 
 We can add a raster basemap as a reference for your geospatial data analysis:
 
-1. Get a user input for the path which the raster map is stored as with did before with `QFileDialog.getOpenFileName()`. It is stored under `Dataset/heli_modified.tif`
+1. Get a user input for the path which the raster map is stored as with did before with `QFileDialog.getOpenFileName()`. It is stored under `Dataset/heli_georeferenced.tif`
 2. Use `addRasterLayer()` to add the raster layer
 3. **Optional**: You may want to play around with the `renderer()` and `symbol()` to adjust the basemap stylization settings
 4. Put the layer in the background by manually reordering it (or by modifying and rerunning the code from task 6.2)
@@ -512,7 +512,7 @@ The result should look like this (could be different in case you didn't do some 
 
 ![Reference](https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop/blob/master/Workshop%20Slides/Slides%20Images/Task%207b.png)
 
-**Note**: the `heli_modified.tif` file is a manually georeferenced version of the original `heli.tif`. The georeferencing is not perfect (for example when you would compare it to another basemap like OpenStreetMap) but is sufficient for this exercise.
+**Note**: the `heli_georeferenced.tif` file is a manually georeferenced version of the original `heli.tif`. The georeferencing is not perfect (for example when you would compare it to another basemap like OpenStreetMap) but is sufficient for this exercise.
 
 For comparing  this basemap with an OSM basemap you can optionally run the following code:
 ```
@@ -531,7 +531,7 @@ QgsProject.instance().addMapLayer(layer)
 
 In case all previous steps were executed correctly you could try to clear your map canvas and rerun the entire script as once to automatically recreate the workflow.
 
-1. Make sure that all your functions and code are all properly ordered and functions properly. Remove any duplicate creation of outputs (for example once using individual commands and once with a function). You can also use the full solution script from the repository. You can find the file in `Scripts/Solution.py`.
+1. Make sure that all your functions and code are all properly ordered and functions properly. Remove any duplicate creation of outputs (for example once using individual commands and once with a function). You can also use the full solution script from `Scripts/Workshop Solution.py`.
 2. **(Optional)** Rerun the full script from scratch:
 	- Save your current project as a new one and clear the QGIS canvas in your current project by typing `QgsProject.instance().clear()` in the console
 	- Run the full script from the editor by clicking on `Run Script` and make sure that the workflow progresses as intended (load input layers + run tools to create intermediate and output layers)
