@@ -165,7 +165,7 @@ With the Processing Graphic Modeler open, we can now visualize and build Task 2.
 	- Close the script and on the Processing Toolbox's menu toolbar, click `Scripts -> Add Script to Toolbox...` and navigate to the saved Python script.
 	- The script will be added under `Scripts -> vector`. If you run it with the same inputs you'll notice that the output layer name will be 'Buffered' rather than 'Buffer Output'. The former is the default output layer name of the standard Buffer tool.
 
-![Reference](https://github.com/robembd/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Graphic%20Modeler%20Example.png)
+![Reference](https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop/blob/master/Workshop%20Slides/Slides%20Images/Graphic%20Modeler%20Example.png)
 
 #### Task 2.3. Recreating the same function using a standalone script
 Now that you visualized your steps, you can now try to translate them into actual Pythonic code.\
@@ -490,7 +490,7 @@ We can add a raster basemap as a reference for your geospatial data analysis:
 
 The result should look like this (could be different in case you didn't do some of the optional steps):
 
-![Reference](https://github.com/robembd/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%207b.png)
+![Reference](https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop/blob/master/Workshop%20Slides/Slides%20Images/Task%207b.png)
 
 **Note**: the `heli_modified.tif` file is a manually georeferenced version of the original `heli.tif`. The georeferencing is not perfect (for example when you would compare it to another basemap like OpenStreetMap) but is sufficient for this exercise.
 
