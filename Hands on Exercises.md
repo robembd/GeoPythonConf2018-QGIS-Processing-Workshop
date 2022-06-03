@@ -1,6 +1,7 @@
 # GeoPython Conference 2018
+
 **Processing Framework: Automating Tasks with Python**
-\
+
 A modified version of the QGIS workshop for the GeoPython Conference 2018. The original workshop GitHub page can be found [here](https://github.com/geometalab/GeoPythonConf2018-QGIS-Processing-Workshop ).
  
 ## Getting started
@@ -13,19 +14,21 @@ To try out our hands on examples, the following is required:
 
 Downloading the standalone or OSGeo4W installer will automatically install the correct version of Python as well as Qt and PyQt.
 
-1. [Download and install QGIS 3.x](https://www.qgis.org/en/site/forusers/download.html) (Only QGIS 3.0 and above is supported because of changes in the update from 2.18 to 3.0
+1. [Download and install QGIS 3.x](https://www.qgis.org/en/site/forusers/download.html) (Only QGIS 3.0 and above is supported because of changes in the update from 2.18 to 3.0)
 2. Get the sample data that we will be using from [this repository](https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop)
 	1. Option 1: go to repository click on **Code/Download ZIP**)
-	2. Option 2 (in case you have Git installed): clone the repository using the command line (cd to the parent folder and type `git clone https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop.git`)
+	2. Option 2 (in case you have Git installed): clone the repository using the command line (`cd` to the parent folder and type `git clone https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop.git`)
 3. Fire up QGIS and we're ready! 
  
 **Notes:**
+
 * This repository contains the hands-on problem sets and tasks that we will try out during the workshop. You can find the suggested solutions, master scripts, and graphic models for the tasks in the folder `Scripts` subfolder (read the readme for more information on the different files).
 * For QGIS <2.99 users, these problem sets are still workable, but do take note that as QGIS upgraded from QGIS 2.18 to QGIS 3.0.0, there are a lot of changes, including the Python syntax to be upgrade from Python 2.6 to Python 3.6
 * It is still possible to follow this workshop in QGIS 2.18, but do make sure that you are aware of the backwards incompatible changes as many methods and functions were made obsolete or renamed. You can see the [version changelog here](https://qgis.org/api/api_break.html#qgis_api_break_3_0_QgsGeometryAnalyzer)
 * To be more specific and as a disclaimer, it is rather redundant if you are following this workshop using QGIS 2.18, as the LTR version of QGIS would soon be updated to QGIS 3.x, and the workshop here would still be very likely to work in the LTR
    
 ## Getting more sample data
+
 If you want more sample data or resources to further try out QGIS on your own, look no further:
  
 * [The PyQGIS Programmer's Guide](http://locatepress.com/ppg3)
@@ -34,6 +37,7 @@ If you want more sample data or resources to further try out QGIS on your own, l
 * Various blogs, channels, etc.
  
 ## Using the QGIS Python Console
+
 * With QGIS running, open the console by going to `Plugins -> Python Console`, clicking on the `Python Console` button from the `Plugin toolbar`, or simply press `Alt + Ctrl + P` on the keyboard
 * The toolbar contains the tools **Clear console, Import Class, Run Command, Show Editor, Settings,** and **Help**
 * The built-in code editor can be used alongside the console
@@ -45,18 +49,20 @@ import qgis.utils
 ```
    
 ## Introduction to Processing Framework
-* More information can be found in the slides also available in this repository (file: **\Workshop Slides\GeoPython Conference 2018.pdf**).
+
+More information can be found in the slides also available in this repository (file: **Workshop Slides/GeoPython Conference 2018.pdf**).
 
 To summarize, it is a geoprocessing environment that can be used to call native and third-party algorithms from QGIS, making your spatial analysis tasks more productive and easy to accomplish. Its features include the algorithm **toolbox** as well as several **automation tools** including a graphic modeler and user-defined scripts.
 
 As a Core plugin, Processing is installed by default but you need to activate it:
 
-1. Go to Plugins ► Manage and install plugins…
+1. Go to `Plugins -> Manage and install plugins…`
 2. Click on the Installed tab at the left
 3. Check the box next to the Processing entry
 4. Close the dialog.
 
 ## About PyQGIS
+
 * QGIS 0.9.0 introduced Python to its client
 * PyQGIS or Python Console in QGIS client
 * Features of PyQGIS:
@@ -65,48 +71,44 @@ As a Core plugin, Processing is installed by default but you need to activate it
     * Run Python code and commands on the Python Console
     * Create and use Python plugins
 
-\
-\
-
 # **Task: Perform Geospatial Analysis on Protected Habitats in an Environment**
-* **Problem**: The construction of an autobahn/expressway will lead to detrimental impact onto the habitats on its environment. The goal is to analyze the protected habitats (flora and fauna) that would be affected by the construction of a fictional expressway, and to determine how many species and biotypes in the impact area of building a highway are legally protected.
+
+* **Problem**: The construction of an autobahn/expressway will have a detrimental impact on the habitats on its environment. The goal is to analyze the protected habitats (flora and fauna) that would be affected by the construction of a fictional expressway, and to determine how many species and biotypes in the impact area of building a highway are legally protected.
 * **Source**: This task is based on Task 6 of the course _Introduction to GIS and Digital Cartography_ by Claas Leiner, University of Kassel, 2010.
 	* Adapted to a class for Vector Analysis by Stefan Keller, FS 2017
 	* Translated and adapted for QGIS 3.0 and the GeoPython Conference by Kang Zi Jing, 2018
+* **Data**: provided are a polygon vector file (**umgebung.gpkg**) which maps Biotype habitats, a line vector file (**autobahn.gpkg**) for the fictional highway route, and a topographic map (**heli_modified.tif**) scaled at 1:25,000 (Tk25) to be used as a basemap. 
+* **Workflow**: The detailed workflow can be found in the repositor in **Workflow/Highway Construction Workflow English.doc**.
 
-Data provided are a polygon vector file (**umgebung.gpkg**) which maps Biotype habitats, a line vector file (**autobahn.gpkg**) for the fictional highway route, and a topographic map (**heli.tif**) scaled at 1:25,000 (Tk25) to be used as a basemap. 
+**As you can already guess, doing the same analysis over and over again on different files is very tedious, boring and repetitive. Is there a way to automate this? Yes! With the help of scripting and PyQGIS, we can!**
 
-The detailed workflow can be found in the repositor in **\Workflow\Highway Construction Workflow English.doc**. It can be summarized as follows:
+With the click of a button to run a script, we can automate this task in mere seconds.
 
-- **Import** the input data and aligning their CRS
-- Calculation of **impact zones** in the neighborhood of the highway for different levels
-- item 3
-
-**As you can already tell, doing this over and over again on different files is very tedious, boring and repetitive. Is there a way to automate this? Yes! With the help of scripting and PyQGIS, we can!**\
-\
-With the click of a button to run a script, we can automate this task in mere seconds.\
-This problem will be broken down into smaller problem sets and tasks to break the problem apart. The tasks will be progressive, from getting familiar with the QGIS client to using its Processing toolbox tools, like the Graphical Modeler before moving on to creating your own custom script.
+This problem will be broken down into smaller problem sets and tasks to break the problem down. The tasks will be progressive, from getting familiar with the QGIS client to using its Processing toolbox tools, like the Graphical Modeler before moving on to creating your own custom script.
 
 
 ## **Task 1.** Adding GeoPackage as Layers into QGIS
-- **Dataset used:** Umgebung.gpkg, Autobahn.gpkg
+
+- **Dataset used:** `Umgebung.gpkg`, `Autobahn.gpkg`
 - **Tools used:** QGIS GUI, PyQGIS
-- **Description:** To load .gpkg files into QGIS client
+- **Description:** To load `.gpkg` files into QGIS client
 - **Objective:** Manually load vector layers on QGIS, and then using the Python console
 
 #### Task 1.1. Manually adding the GeoPackage files into QGIS
+
 1. Run QGIS 3.0 on your machine
 2. The first step is to set the Project CRS to 31467 (DHDN/Gauss-Kruger Zone 3) which corresponds to the CRS of the `umgebung.gpkg` file which will be added first. All subsequent data (including `autobahn.gpkg` which uses another CRS) will be projected on the fly when added to the QGIS project.
 3. You can do this manually by clicking on the CRS at the bottom-right of the window, or by clicking `Project -> Project Properties -> CRS` or you can press `Ctrl + Shift + P` to open up Project Properties and then clicking CRS
-4. From there, change the CRS to DHDN/Gauss-Kruger zone 3, EPSG: 31467
-5. Once you're done, check that it says 31467 at the bottom of the window on the CRS tab
+4. From there, change the CRS to `DHDN/Gauss-Kruger zone 3, EPSG: 31467`
+5. Once you're done, check that it says 'EPSG:31467' at the bottom of the window on the CRS tab
 6. Now on the browser panel, look for GeoPackage, right-click it and select `New Connection`
 7. Navigate to the folder you saved the GeoPackage file `Dataset/umgebung.gpkg` in and add it
 8. On the browser panel, show the child items of the newly created connection `umgebung.gpkg` and drag the vector layer onto the map canvas (or double-click it)
-9. **(Optional)** you can play around with the Styling of the layer and classify it by the attribute `bfn_biotope_text` with different colors. To do this, right-click the environment layer and go to `Properties > Symbology` and select `Categorized` from the drop-down menu at the top of the dialog box, selecting a color ramp (for example 'Random colors') and clicking on `Classify`.
-10. As we are going to focus on scripting in Python, let's remove this layer: right-click the layer under Layers, and click on remove
+9. **(Optional)** you can play around with the Styling of the layer and classify it by the attribute `bfn_biotope_text` with different colors. To do this, right-click the environment layer and go to `Properties -> Symbology` and select `Categorized` from the drop-down menu at the top of the dialog box, selecting a color ramp (for example 'Random colors') and clicking on `Classify`.
+10. As we are going to focus on scripting in Python, let's remove this layer: right-click the layer under Layers, and click on `Remove Layer`
 
-#### Task 1.2. Creating a Dialog Box to ask for User Input on File to Add\
+#### Task 1.2. Creating a Dialog Box to ask for User Input on File to Add
+
 We want to write a script to automate tasks, so let us explore asking for user input for file path:
 
 1. On the Menu Toolbar, click `Plugins -> Python Console` or press `Ctrl + Alt + P` on your keyboard to open up the Python Console
@@ -120,21 +122,24 @@ We want to write a script to automate tasks, so let us explore asking for user i
 
 
 #### Task 1.3. Adding Vector Layers into QGIS
+
 Now we can add the user input layer into QGIS
 
-1. `envLayer = iface.addVectorLayer(envPath, 'myLayer', 'ogr')`
+1. Add a new layer called `My Layer` to the project: `envLayer = iface.addVectorLayer(envPath, 'My Layer', 'ogr')`
 2. Change the layer name to 'Environment': `envLayer.setName('Environment')`
 3. Practice and do the same for the Autobahn (file: `autobahn.gpkg`) layer by first asking the GeoPackage file path user input and then adding it as a vector layer with name 'Autobahn'. If needed change the layer symbology manually to another color.
 
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%201.png)
 
 ## Task 2. Adding Buffers to Autobahn Layer
-- **Dataset used:** Autobahn.gpkg
+
+- **Dataset used:** `Autobahn.gpkg`
 - **Tools used:** Processing Graphic Modeler, Python Console
 - **Description:** To create buffer layers for the Autobahn to simulate the actual physical space of it
 - **Objective:** Running Processing algorithms on the Graphic Modeler, and then with Pythonic code
 
 #### Task 2.1. Introduction and Running the Graphic Modeler
+
 The Graphic Modeler is a good introduction to scripting in PyQGIS because the coding and scripting is displayed for the user as something visual, which is easy on the beginners.
 
 1. To start off, you need to open up your Processing Toolbox, on the menu toolbar, click `Processing -> Toolbox` or press `Ctrl + Alt + T` and see that the Processing Toolbox window now appears on the right side of the QGIS window
@@ -142,6 +147,7 @@ The Graphic Modeler is a good introduction to scripting in PyQGIS because the co
 3. First, we need to visualize and get an idea of what we want to achieve (this helps us to form pseudo code before creating actual code in the future): Run through the Autobahn layer with a Buffer algorithm to create a new Autobahn layer that is 40m wide in diameter
 
 #### Task 2.2. Create a 20m buffer for the Autobahn layer using the Graphic Modeler
+
 With the Processing Graphic Modeler open, we can now visualize and build Task 2.1.3
 
 1. Name the Model `Autobahn Buffer` and the Group `vector`
@@ -168,16 +174,17 @@ With the Processing Graphic Modeler open, we can now visualize and build Task 2.
 ![Reference](https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop/blob/master/Workshop%20Slides/Slides%20Images/Graphic%20Modeler%20Example.png)
 
 #### Task 2.3. Recreating the same function using a standalone script
-Now that you visualized your steps, you can now try to translate them into actual Pythonic code.\
+
+Now that you visualized your steps, you can now try to translate them into actual Pythonic code.
 
 1. Clean up by removing all copies of the buffered Autobahn layers from the previous task.
 2. On the main QGIS window, at the Processing Toolbox, search for **Buffer**, this is the algorithm that we utilized in the Modeler
-2. Double click on it and you can do essentially the same thing as we did in the modeler, except with a few extra fields that we set to default in the Modeler
+2. Double-click on it and you can do essentially the same thing as we did in the modeler, except with a few extra fields that we set to default in the Modeler
 3. Enter the fields for **Input Layer (Autobahn), Distance (20)** while leaving the **Buffered** field empty (default 'Create temporary layer') and run it
-4. At the top of the window, click on 'Log' and you will see a bunch of code. We will be needing this for our script
+4. At the top of the window, click on 'Log' and you will see a bunch of code. We will be needing this for our script.
 5. Study the 'Input parameters' section of the log and copy its entire line of code (including the curly brackets)
 6. On the PyQGIS console, type `inpLayer = QgsProject.instance().mapLayersByName('Autobahn')[0]`, this assigns the vector layer of your autobahn to the variable `inpLayer`
-7. On the PyQGIS console, type `inpParam =` and paste the copied code, and edit the INPUT parameter from the file path to the referenced input layer. It should look something like this (may be slightly different depending on the used QGIS version, you can also see this in the screenshot):\
+7. On the PyQGIS console, type `inpParam =` and paste the copied code, and edit the INPUT parameter from the file path to the referenced input layer. It should look something like this (may be slightly different depending on the used QGIS version, you can also see this in the screenshot):
 ``
 inpParam = { 'INPUT' : inpLayer, 'DISTANCE' : 20, 'SEGMENTS' : 5, 'END_CAP_STYLE' : 0, 'JOIN_STYLE' : 0, 'MITER_LIMIT' : 2, 'DISSOLVE' : False, 'OUTPUT' : 'TEMPORARY_OUTPUT' }
 ``
@@ -191,7 +198,8 @@ outLayer.setName('Autobahn 20')
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Buffer%20Log%20Example.png)
 
 #### Task 2.4. Creating 2 more buffers
-Oftentimes, the actual physical space that a highway construction takes up, is smaller than the actual impact that it causes to the environment.\
+
+Oftentimes, the actual physical space that a highway construction takes up, is smaller than the actual impact that it causes to the environment.
 
 For this we create 2 more buffers to depict 2 more impact zones that the construction of the Autobahn would cause. This can be done by copy-pasting the code from the previous task and modifying it.
 
@@ -204,7 +212,8 @@ For this we create 2 more buffers to depict 2 more impact zones that the constru
 
 
 ## Task 3. Performing Union on the Buffer Areas
-- **Dataset used:** Autobahn.gpkg, and the 3 buffer results from previous task
+
+- **Dataset used:** `Autobahn.gpkg`, and the 3 buffer results from previous task
 - **Tools used:** Python Console, Script Editor
 - **Description:** Now that we have 3 separate buffer layers to showcase the impact areas, we should perform an Union on them to create an overall area of impact from constructing the highway
 - **Objective:** Get more familiar with using Pythonic code to run Processing algorithms
@@ -301,7 +310,8 @@ unionLayer.updateFields()
 
 
 ## Task 4. Performing Intersection on Environment and Impact Area
-- **Dataset used:** Umgebung.gpkg, union result from previous task (`Impact Area`)
+
+- **Dataset used:** `Umgebung.gpkg`, union result from previous task (`Impact Area`)
 - **Tools used:** Script Editor
 - **Description:** Now that we have an overall impact area, we run an Intersection algorithm on it and the Environment layer to highlight the habitats that would be affected
 - **Objectives:** More scripting with Processing algorithms
@@ -317,20 +327,23 @@ This tool will extract the overlapping portions of features (implying that they 
 	- fix the geometry of the `Environment` layer using the 'Fix geometries' tool with output layer name `Environment Fixed` **without adding the fixed geometry layer to the project** (only store the layer reference: `envLayerFixed = outAlgo['OUTPUT']` instead of `QgsProject.instance().addMapLayer(...)`
 	- make the intersection of `envLayerFixed` with `Impact Area` using the 'Intersection' tool with output layer name `Impact Area Intersect`.
 
-**Bonus**: create a function `intersect_layers(inpLayerName1, inpLayerName2, outLayerName)` that first checks the validity of the layers with names `inpLayerName1` and `inpLayerName1` (and deriving a fixed geometry version of the layer **without adding it to the project**) and then creates an intersection with name `outputLayerName`. One possible way is to make use of a third tool in the Toolbox (find out which one). You can use the same strategy as before to get the required inputs, parameters and outputs (note that some algorithm can have *multiple* outputs). Another way would involve more general Python exception handling of the thrown `QgsProcessingException` error (using `try`, `except` and/or `finally`).
+**Bonus**: create a function `intersect_layers(inpLayerName1, inpLayerName2, outLayerName)` that first checks the validity of the layers with names `inpLayerName1` and `inpLayerName1` (and deriving a fixed geometry version of the layer **without adding it to the project**) and then creates an intersection with name `outputLayerName`. One possible way is to make use of a third tool in the Toolbox (find out which one... or check the solution file `Scripts/Solution.py`). You can use the same strategy as before to get the required inputs, parameters and outputs (note that some algorithm can have *multiple* outputs). Another way would involve more general Python exception handling of the thrown `QgsProcessingException` error (using `try`, `except` and/or `finally`).
 5. Your result should look something like this: 
 
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Task%204%20Example.png)
 
 
 ## Task 5. Selecting Features from Queries
+
 - **Dataset used:** Umgebung.gpkg
 - **Tools used:** Query Features and Script Editor
 - **Description:** Now, we have to sieve out, from the impacted and affected habitats, those that are protected species from the others
 - **Objectives:** Feature query on QGIS, feature query in PyQGIS, adding layers in PyQGIS
 
 #### Task 5.1. Running a Query on the Environment Vector Layer Attributes
-Query the attributes of the `Impact Area Intersect` layer from the previous task to determine the **features that are protected by law**.\
+
+Query the attributes of the `Impact Area Intersect` layer from the previous task to determine the **features that are protected by law**.
+
 1. To do this, right click on the Environment layer in the Layers panel, and select `Open Attribute Table`
 2. On the top menu bar, click the button that says `Select features with an expression`
 3. Write the expression for which you want to select queries with, for our case, we are looking for habitats where `ffh_typ_nr = 1`, `geschuetzt_biotop = 1`, or `bedeutend_gruenland_typ = 1`
@@ -339,6 +352,7 @@ Query the attributes of the `Impact Area Intersect` layer from the previous task
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%206.1.png)
 
 #### Task 5.2. Translating Query Feature into Pythonic Code
+
 Now we do what we did in 5.1 using Pythonic code in our script
 
 1. Remember, we are looking for habitats where `ffh_typ_nr = 1`, `geschuetzt_biotop = 1`, or `bedeutend_gruenland_typ = 1`
@@ -374,12 +388,14 @@ QgsProject.instance().addMapLayer(valuable)
 2. Clear the selection from the `Impact Area Intersect` source layer (deselect the highlighted features) with `intLayer.selectByIds([])`
 
 ## Task 6. Reordering and Stylizing
+
 - **Dataset used:** All
 - **Tools used:** Script Editor
 - **Description:** Stylize the map layers to make results more obvious and reorder the layers in the project to make it more readable
 - **Objectives:** Various styling tools and functions on QGIS, and then on PyQGIS
 
 #### Task 6.1. Cleaning up Layers
+
 At this point you should at least have the following results in the project: 
 - `Environment` (original input)
 - `Autobahn` (original input)
@@ -397,7 +413,6 @@ All other layers are not needed anymore and can be deleted:
 lyrAll = [layer.name() for layer in QgsProject.instance().mapLayers().values()]
 lyrRemove = [i for i in lyrAll if i not in lyrKeep]
 ```
-
 3. Remove all layers from the to-be-removed list:
 ```
 for lyrName in lyrRemove:
@@ -406,13 +421,15 @@ for lyrName in lyrRemove:
 ```
 
 #### Task 6.2. Reordering and Hiding Layers
-Some of the remaining intermediate results are useful, but too many layers visible on the project makes it hard to read.\
+
+Some of the remaining intermediate results are useful, but too many layers visible on the project makes it hard to read.
 
 Apart from that, layers are drawn on top of each other which means that the order matters. We can rearrange the layers for better visibility by for example putting the original Autobahn 20 and Autobahn vector files at the top of the order. 
 
 For a limited number of layers the layer order and visibility can be set manually by reordering and checking/unchecking the layers. In case of a larger number of layers or an automated workflow this can also be done in PyQGIS:
 
-For this we can uncheck their visibility using a script so that they are still available, but not visible on the Map Canvas\
+For this we can uncheck their visibility using a script so that they are still available, but not visible on the Map Canvas
+
 1. For now let's keep the 3 layers `Environment`, `Impact Area` and `Environment Selection` visible and store them in a list: `lyrVisible = ['Environment', 'Impact Area', 'Environment Selection']`
 2. Let's use the following layer order to avoid that some layers are drawn on top of other layers: `lyrOrder = ['Environment Selection', 'Impact Area Intersect', 'Impact Area', 'Inner Impact Area', 'Autobahn 20', 'Autobahn 100', 'Autobahn 300', 'Autobahn', 'Environment']`
 2. Loop over all project layers and set the order and visibility:
@@ -439,8 +456,10 @@ print('Reordered and set visibility of ' + str(len(lyrOrder)) + ' layers')
 ```
 
 #### Task 6.3. Stylizing Map Layers
-There are many styles that can be utilized on the layers so that you can get information at a glance\
-For today, we try to stylize them by categorizing different data in different colors and similar data in different shades
+There are many styles that can be utilized on the layers so that you can get information at a glance.
+
+For today, we try to stylize them by categorizing different data in different colors and similar data in different shades:
+
 1. First we have to choose the attributes we want to categorize our vector layer in, for this example, say we want to make all the valuable habitats that are impacted to be green, and we want to categorize it by the type of FFH classification it falls into
 2. To do that, we have to find out how many unique FFH classifications we have in the layer:
 ```
@@ -480,7 +499,8 @@ layer.triggerRepaint()
 ```
 5. **(Optional in case you did Task 3.3.)** Do the same for the `Impact Area` layer by applying a different color for each of the unique values of the `fid_union` field. Modify the coloring such that a **different shade of blue** is applied rather than a random color (Hints: you may have modify the for loop + you can for example use a list of RGB combinations you can iterate through in the for loop is used e.g. `rgbs = [[[30, 63, 102], [82, 138, 174], [188, 210, 232]]])` but you could also make it more challenging by trying to use a color ramp).
 
-#### Task 6.4. Adding a Basemap
+#### Task 6.4. Adding a basemap
+
 We can add a raster basemap as a reference for your geospatial data analysis:
 
 1. Get a user input for the path which the raster map is stored as with did before with `QFileDialog.getOpenFileName()`. It is stored under `Dataset/heli_modified.tif`
@@ -519,7 +539,7 @@ In case all previous steps were executed correctly you could try to clear your m
 
 # Task 7.2. (Optional) Run the script from the Processing Toolbox
 
-We have created many different functions to help us achieve our tasks.\
+We have created many different functions to help us achieve our tasks.
 The final goal would be to have a script that 
 - is interactive and uses the user inputs to automate our tasks
 - can be published and/or shared with others
@@ -528,23 +548,26 @@ There are many ways to customize your scripts and workflow processing in QGIS. W
 
 While we won't do it here for the full script, we can however illustrate it for the simple buffering tool model you previously created during Task 2.2. and saved as `AutobahnBuffer.model3`:
 
-1. Go to the Processing Toolbox and open the Model Designer of the model (right-click on model and then 'Edit Model'). If it's not there (anymore) import it again by clicking on `Model/Open Existing Model...` and browsing to the `AutobahnBuffer.model3` model file.
+1. Go to the Processing Toolbox and open the Model Designer of the model (right-click on model and then 'Edit Model'). If it's not there (anymore) import it again by clicking on `Model -> Open Existing Model...` and browsing to the `AutobahnBuffer.model3` model file.
 2. Inside the Model Designer click on `Export as Script Algorithm...`
 3. A new window will appear with the automatically generated script. Examine it carefully and you'll see that many things look familiar including input and parameter setting, running a tool using `processing.run` and returning its `Output` result. It is however in a slightly different form using classes and certain methods like `initAlgorithm` and `processAlgorithm` to be implemented.
 4. Save the Python script
-5. Go back to the Processing Toolbox and click on `Scripts/Add Script to Toolbox...`. You'll see it under the `Scripts` group. It should work in exactly the same way as the model from the Graphic Modeler.
+5. Go back to the Processing Toolbox and click on `Scripts -> Add Script to Toolbox...`. You'll see it under the `Scripts` group. It should work in exactly the same way as the model from the Graphic Modeler (same input and parameter names + same output)
 
 #### Bonus: Running from toolbar + creating a Plugin or Main Script
+
 1. We could modify our script to become available as a **tool in the Plugins Toolbar**.  For this the [ScriptRunner 3](https://plugins.qgis.org/plugins/scriptrunner3/) plugin can be installed and used.
-2. Naturally there are more ways to convert your script for better execution and sharing, for example by converting it into a **plugin** so that it can be published and used by others 
+2. Naturally there are more ways to convert your script for better execution and sharing, for example by converting it into a **plugin** so that it can be published and used by others .
 2. For the more advanced coders, you might want to create a **Python class** and declare methods instead of just defining functions (similar to the code we have explored for converting the script to a Processing Toolbox tool).
 
 The great thing about flexibility is you have the freedom to do as you please to suit your needs, so practice away! 
 
 ## Notes and Disclaimer
+
 Note that there is no 'perfect' or 'only' solution when it comes to scripting, and as such, the scripts that were demonstrated and available in this workshop/repository are only for references and to guide you. With that said, always try to maintain good programming practices so that your code is clean, readable and easy to maintain. 
 
 ## References, Resources and Additional Help
+
 * [Processing: A Python Framework for the Seamless Integration of Geoprocessing Tools in QGIS by Anita Graser](http://www.mdpi.com/2220-9964/4/4/2219/htm)
     * In-depth development history on Processing Framework
 * [Anita Graser's blog](http://anitagraser.com)
@@ -559,4 +582,5 @@ Note that there is no 'perfect' or 'only' solution when it comes to scripting, a
 * And of course, the wonderful people at Geometa Lab, HSR
 
 ## Contact
+
 Kang Zi Jing, author and owner of this GitHub repository: zkang[at]hsr[dot]ch 

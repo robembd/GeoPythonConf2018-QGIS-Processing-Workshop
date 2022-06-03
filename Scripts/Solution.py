@@ -12,8 +12,8 @@ QgsProject.instance().setCrs(QgsCoordinateReferenceSystem(31467))
 envPath = QFileDialog.getOpenFileName(QFileDialog(), 'Environment Layer Select', 'setDefaultPath')[0]
 print('Environment file path: ' + envPath)
 
-# 1.3. add the layer with name 'myLayer' and then rename it to `umgebung_neu`
-envLayer = iface.addVectorLayer(envPath, 'myLayer', 'ogr')
+# 1.3. add the layer with name 'My Layer' and then rename it to `umgebung_neu`
+envLayer = iface.addVectorLayer(envPath, 'My Layer', 'ogr')
 envLayer.setName('Environment')
 
 # 1.3. add the autobahn layer
