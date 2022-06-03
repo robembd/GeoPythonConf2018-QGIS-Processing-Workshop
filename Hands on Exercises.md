@@ -335,7 +335,7 @@ This tool will extract the overlapping portions of features (implying that they 
 
 ## Task 5. Selecting Features from Queries
 
-- **Dataset used:** Umgebung.gpkg
+- **Dataset used:** `Umgebung.gpkg`
 - **Tools used:** Query Features and Script Editor
 - **Description:** Now, we have to sieve out, from the impacted and affected habitats, those that are protected species from the others
 - **Objectives:** Feature query on QGIS, feature query in PyQGIS, adding layers in PyQGIS
