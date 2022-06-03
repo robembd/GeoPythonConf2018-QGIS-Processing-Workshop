@@ -20,3 +20,4 @@ Have fun programming and godspeed!
 |Master Script Straightforward|Reference script that automates the entire workflow (like a Processing algorithm)
 |Master Script with Info|Reference script that gives information on what is happening|
 |Master Script Model|Reference script that is interactive, and has basic exception and error handling|
+|Solution|Reference script from forked repository, contains some additional and/or modified tasks|
