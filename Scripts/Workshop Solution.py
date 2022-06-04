@@ -224,7 +224,7 @@ QgsProject.instance().addMapLayer(selLayer)
 intLayer.selectByIds([])
 
 # TASK 6. Reordering and Stylizing
-# 6.1 Cleaning up Layers
+# 6.1. Cleaning up Layers
 lyrKeep = ['Environment', 'Autobahn', 'Autobahn 20', 'Autobahn 100', 'Autobahn 300', 'Inner Impact Area', 'Impact Area', 'Impact Area Intersect', 'Environment Selection']
 lyrAll = [layer.name() for layer in QgsProject.instance().mapLayers().values()]
 lyrRemove = [i for i in lyrAll if i not in lyrKeep]
@@ -236,15 +236,18 @@ for lyrName in lyrRemove:
 lyrOrder = ['Environment Selection', 'Impact Area Intersect', 'Impact Area', 'Inner Impact Area', 'Autobahn 20', 'Autobahn 100', 'Autobahn 300', 'Autobahn', 'Environment']
 lyrVisible = ['Environment', 'Impact Area', 'Environment Selection']
 
-# get layer tree root
+# get the layer tree root of the project
 lyrTreeRoot = QgsProject.instance().layerTreeRoot() # QgsLayerTree
 
 # apply correct layer order by inserting cloned layer and removing the original
 for i in range(len(lyrOrder)):
     lyrOrig = QgsProject.instance().mapLayersByName(lyrOrder[i])[0] # QgsVectorLayer
+    # find the layer you want to reorder and clone them
     lyrTreeOrig = lyrTreeRoot.findLayer(lyrOrig.id()) # QgsLayerTreeLayer
     lyrClone = lyrTreeOrig.clone()
+    # get a pointer to the parent object of the layer
     lyrParent = lyrTreeOrig.parent() # QgsLayerTree
+    # insert the clones into the parent node and remove the original layer
     lyrParent.insertChildNode(i, lyrClone)
     lyrParent.removeChildNode(lyrTreeOrig)
     # set layer visibility
@@ -255,9 +258,11 @@ for i in range(len(lyrOrder)):
     else:
         QgsProject.instance().layerTreeRoot().findLayer(lyrID).setItemVisibilityChecked(False) 
 
+# refresh the map canvas
+iface.mapCanvas().refresh()
 print('Reordered and set visibility of ' + str(len(lyrOrder)) + ' layers')
 
-# 6.3 stylizing layer
+# 6.3. stylizing layer
 # get unique values of the layer
 layerName = 'Environment Selection'
 colName = 'ffh_typ_text'
@@ -327,7 +332,7 @@ if renderer is not None:
 
 layer.triggerRepaint()
 
-# 6.4 add base layer + move it to the background
+# 6.4. add base layer + move it to the background
 envPath = QFileDialog.getOpenFileName(QFileDialog(), "Raster Layer Select", "setDefaultPath")[0]
 env = iface.addRasterLayer(envPath)
 env.setName("heli")
@@ -343,3 +348,9 @@ lyrParent.removeChildNode(lyrTreeOrig)
 tms = 'type=xyz&url=https://tile.openstreetmap.org/{z}/{x}/{y}.png&zmax=19&zmin=0'
 layer = QgsRasterLayer(tms,'OSM', 'wms')
 # QgsProject.instance().addMapLayer(layer)
+
+# zoom to extent of Environment layer
+lyrEnv = QgsProject.instance().mapLayersByName('Environment')[0]
+cnvs = iface.mapCanvas()
+cnvs.setExtent(lyrEnv.extent())
+cnvs.refresh()

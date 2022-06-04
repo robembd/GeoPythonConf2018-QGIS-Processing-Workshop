@@ -514,14 +514,23 @@ The result should look like this (could be different in case you didn't do some 
 
 **Note**: the `heli_georeferenced.tif` file is a manually georeferenced version of the original `heli.tif`. The georeferencing is not perfect (for example when you would compare it to another basemap like OpenStreetMap) but is sufficient for this exercise.
 
-For comparing  this basemap with an OSM basemap you can optionally run the following code:
+For comparing  this basemap with an OSM basemap you can optionally run the following code (or importing it manually using `Web -> QuickMapServices -> OSM -> OSM Standard`:
 ```
 tms = 'type=xyz&url=https://tile.openstreetmap.org/{z}/{x}/{y}.png&zmax=19&zmin=0'
 layer = QgsRasterLayer(tms,'OSM', 'wms')
 QgsProject.instance().addMapLayer(layer)
 ```
+5. Finally zoom to the extent of the `Environment` layer:
+
+```
+lyrEnv = QgsProject.instance().mapLayersByName('Environment')[0]
+cnvs = iface.mapCanvas()
+cnvs.setExtent(lyrEnv.extent())
+cnvs.refresh()
+```
 
 ## Task 7. Finishing Up
+
 - **Dataset used:** (None)
 - **Tools used:** Script Editor
 - **Description:** Finish up and make sure that all your code is in a single script and everything works when you run it!
