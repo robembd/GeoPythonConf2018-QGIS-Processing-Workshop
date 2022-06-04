@@ -512,7 +512,7 @@ The result should look like this (could be different in case you didn't do some 
 
 ![Reference](https://github.com/robembd/GeoPythonConf2018-QGIS-Processing-Workshop/blob/master/Workshop%20Slides/Slides%20Images/Task%207b.png)
 
-**Note**: the `heli_georeferenced.tif` file is a manually georeferenced version of the original `heli.tif`. The georeferencing is not perfect (for example when you would compare it to another basemap like OpenStreetMap) but is sufficient for this exercise.
+**Note**: the `heli_georeferenced.tif` file is a manually georeferenced version of the original `heli.tif`. The result is not perfect (for example when you would lay it on top of another basemap like OpenStreetMap) but is sufficient for this exercise.
 
 For comparing  this basemap with an OSM basemap you can optionally run the following code (or importing it manually using `Web -> QuickMapServices -> OSM -> OSM Standard`:
 ```
