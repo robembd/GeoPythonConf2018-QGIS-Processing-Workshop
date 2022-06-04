@@ -546,7 +546,7 @@ In case all previous steps were executed correctly you could try to clear your m
 	- Run the full script from the editor by clicking on `Run Script` and make sure that the workflow progresses as intended (load input layers + run tools to create intermediate and output layers)
 	- If your final results look like the end result, you just created an automated script that helps automate a workflow! 
 
-# Task 7.2. (Optional) Run the script from the Processing Toolbox
+#### (Optional) Task 7.2. Run the script from the Processing Toolbox
 
 We have created many different functions to help us achieve our tasks.
 The final goal would be to have a script that 
