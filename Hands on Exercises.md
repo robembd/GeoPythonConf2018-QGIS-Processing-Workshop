@@ -2,7 +2,7 @@
 
 **Processing Framework: Automating Tasks with Python**
 
-A modified version of the QGIS workshop for the GeoPython Conference 2018. The original workshop GitHub page can be found [here](https://github.com/geometalab/GeoPythonConf2018-QGIS-Processing-Workshop ).
+A modified version of the [QGIS workshop for the GeoPython Conference 2018](https://giswiki.hsr.ch/Workshop_QGIS_Python_GeoPython_2018). The original workshop GitHub page can be found [here](https://github.com/geometalab/GeoPythonConf2018-QGIS-Processing-Workshop ).
  
 ## Getting started
 
